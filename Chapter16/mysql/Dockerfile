@@ -1,5 +1,10 @@
 FROM ubuntu:14.04
 
+ENV http_proxy 'http://10.122.49.205:3128'
+ENV https_proxy $http_prox
+RUN export http_proxy=$http_proxy
+RUN export https_proxy=$https_proxy
+
 ENV DEBIAN_FRONTEND noninteractive
 
 RUN apt-get update

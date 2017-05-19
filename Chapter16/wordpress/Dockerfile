@@ -1,10 +1,15 @@
 FROM ubuntu:14.04
 
+ENV http_proxy 'http://10.122.49.205:3128'
+ENV https_proxy $http_prox
+RUN export http_proxy=$http_proxy
+RUN export https_proxy=$https_proxy
+
 RUN apt-get update
 RUN apt-get install -y apache2 php5 php5-mysql mysql-client wget
 
 WORKDIR /var/www
-RUN wget http://ko.wordpress.org/wordpress-4.0-ko_KR.tar.gz -O - | tar -xz
+RUN wget -e use_proxy=yes -e https_proxy=10.122.49.205:3128 https://wordpress.org/latest.tar.gz --no-check-certificate -O - | tar -xz
 
 WORKDIR /etc/apache2/sites-enabled
 RUN sed -i "s/\/var\/www\/html/\/var\/www\/wordpress/g" 000-default.conf
