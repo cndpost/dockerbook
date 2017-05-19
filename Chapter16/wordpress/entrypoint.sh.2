@@ -1,0 +1,4 @@
+#!/bin/sh
+
+mysql -h db -uroot -p$WORDPRESS_DB_PASSWORD -e "create database wp"
+apachectl -DFOREGROUND
